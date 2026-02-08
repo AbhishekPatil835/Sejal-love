@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>For My Cutuuu Sejal ❤️</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Georgia', serif;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            color: white;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            padding: 60px 20px;
+        }
+
+        h1 {
+            font-size: 42px;
+        }
+
+        p {
+            font-size: 20px;
+            max-width: 650px;
+            margin: 20px auto;
+            line-height: 1.8;
+        }
+
+        .heart {
+            font-size: 50px;
+            animation: heartbeat 1.2s infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .gallery {
+            margin-top: 40px;
+        }
+
+        .gallery img {
+            width: 250px;
+            height: auto;
+            margin: 15px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        button {
+            padding: 15px 35px;
+            font-size: 18px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 15px;
+            transition: 0.3s;
+        }
+
+        #yesBtn {
+            background-color: white;
+            color: #ff4d6d;
+        }
+
+        #yesBtn:hover {
+            background-color: #ffe6ee;
+            transform: scale(1.05);
+        }
+
+        #noBtn {
+            background-color: #ff4d6d;
+            color: white;
+        }
+
+        #message {
+            font-size: 24px;
+            margin-top: 20px;
+            height: 40px;
+        }
+
+        footer {
+            margin-top: 60px;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>My Cutuuu Sejal ❤️</h1>
+    <div class="heart">💍</div>
+
+    <p>
+        From the day you entered my life, everything changed.
+        You became my peace, my happiness, my forever.
+    </p>
+
+    <p>
+        Distance tried to test us,
+        but it only made me more sure —
+        that I want you in every phase of my life.
+    </p>
+
+    <p>
+        I don’t just love you.
+        I choose you.
+        Today.
+        Tomorrow.
+        Always.
+    </p>
+
+    <div class="gallery">
+        <img src="photo1.png" alt="Memory 1">
+        <img src="photo2.jpeg" alt="Memory 2">
+        <img src="photo3.jpeg" alt="Memory 3">
+    </div>
+
+    <h2>Will you keep choosing me forever, Sejal?</h2>
+
+    <button id="yesBtn" onclick="yesClicked()">Yes, Always ❤️</button>
+    <button id="noBtn" onclick="noClicked()">No</button>
+
+    <div id="message"></div>
+
+    <footer>
+        Forever yours, <br>
+        Abhishek ❤️
+    </footer>
+
+</div>
+
+<script>
+let yesButton = document.getElementById("yesBtn");
+let message = document.getElementById("message");
+
+function yesClicked() {
+    message.innerHTML = "You made me happiest ❤️ Love you bachaa 💕";
+    launchHeartFireworks();
+}
+
+function noClicked() {
+    message.innerHTML = "🥺 Try again";
+    
+    let currentSize = window.getComputedStyle(yesButton).fontSize;
+    let newSize = parseFloat(currentSize) + 5;
+    yesButton.style.fontSize = newSize + "px";
+}
+
+function launchHeartFireworks() {
+    const canvas = document.createElement("canvas");
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+
+    for (let i = 0; i < 80; i++) {
+        particles.push({
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            size: Math.random() * 15 + 10,
+            angle: Math.random() * 2 * Math.PI,
+            speed: Math.random() * 5 + 2,
+            alpha: 1
+        });
+    }
+
+    function drawHeart(x, y, size, alpha) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.scale(size / 20, size / 20);
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(0, -3, -5, -5, -5, -1);
+        ctx.bezierCurveTo(-5, 3, 0, 5, 0, 8);
+        ctx.bezierCurveTo(0, 5, 5, 3, 5, -1);
+        ctx.bezierCurveTo(5, -5, 0, -3, 0, 0);
+        ctx.fillStyle = "rgba(255, 0, 100," + alpha + ")";
+        ctx.fill();
+        ctx.restore();
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach((p) => {
+            p.x += Math.cos(p.angle) * p.speed;
+            p.y += Math.sin(p.angle) * p.speed;
+            p.alpha -= 0.015;
+            drawHeart(p.x, p.y, p.size, p.alpha);
+        });
+
+        if (particles[0].alpha > 0) {
+            requestAnimationFrame(animate);
+        } else {
+            document.body.removeChild(canvas);
+        }
+    }
+
+    animate();
+}
+</script>
+
+</body>
+</html>
